@@ -34,6 +34,8 @@ public class GripPipeline implements VisionPipeline {
 	private Mat hslThresholdOutput = new Mat();
 	private ArrayList<MatOfPoint> findContoursOutput = new ArrayList<MatOfPoint>();
 	private ArrayList<MatOfPoint> filterContoursOutput = new ArrayList<MatOfPoint>();
+	
+	public double cx;
 
 	static {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -51,9 +53,9 @@ public class GripPipeline implements VisionPipeline {
 
 		// Step HSL_Threshold0:
 		Mat hslThresholdInput = blurOutput;
-		double[] hslThresholdHue = {59.89208633093526, 80.67911714770797};
-		double[] hslThresholdSaturation = {52.74280575539568, 255.0};
-		double[] hslThresholdLuminance = {103.19244604316548, 255.0};
+		double[] hslThresholdHue = {0.0, 255.0};
+		double[] hslThresholdSaturation = {0.0, 255.0};
+		double[] hslThresholdLuminance = {0.0, 255.0};
 		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
 		// Step Find_Contours0:
@@ -76,6 +78,7 @@ public class GripPipeline implements VisionPipeline {
 		double filterContoursMaxRatio = 1000.0;
 		filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, filterContoursOutput);
 
+		/////////////////////
 	}
 
 	/**
@@ -262,10 +265,9 @@ public class GripPipeline implements VisionPipeline {
 			output.add(contour);
 			
 			Moments moments = Imgproc.moments(contour);
-			double cx;
 			cx = moments.get_m10() / moments.get_m00();
 			System.out.println(cx);
-		}
+					}
 	}
 
 
