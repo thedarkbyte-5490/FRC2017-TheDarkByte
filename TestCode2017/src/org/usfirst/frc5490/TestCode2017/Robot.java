@@ -121,7 +121,7 @@ public class Robot extends SampleRobot {
     	double doorTime = 0;
     	int direction = 0;
     	
-    	boolean unloaded = true;
+    	boolean unloaded = true; 
     	double clothTime = 4.5;
     	
         while (isOperatorControl() && isEnabled()) {
